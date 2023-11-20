@@ -6,12 +6,12 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:50 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/18 22:31:04 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:41:09 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -22,7 +22,11 @@
 # include <unistd.h>
 # include <fcntl.h> 
 
-char *get_next_line(int fd);
+char	*get_next_line(int fd);
+char	*ft_gnl_get_line(char **buf, int fd, int rt);
+char	*ft_gnl_generate_line(char **line, size_t r, size_t i, char **buf);
+char	*ft_gnl_free(char **buf, char *line, char cs);
+size_t	ft_gnl_find_nl(size_t i, char *buf, int *rt);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
