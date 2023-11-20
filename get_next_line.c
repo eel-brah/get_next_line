@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:56 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/20 10:55:21 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:50:40 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,75 +62,73 @@ size_t ft_gnl_find_nl(size_t i, char *buf, int *rt)
     return (i);
 }
 
-char    *ft_gnl_free(char **buf, char *line)
+char    *ft_gnl_free(char **buf, char *line, char cs)
 {
-    free (line);
-    free (*buf);
-    *buf = NULL;
-    return (NULL);
+    if (cs == -1)
+    {
+        free (line);
+        free (*buf);
+        *buf = NULL;
+        return (NULL);
+    }
+    else
+    {
+        free (*buf);
+        *buf = NULL;
+        return (line);
+    }
 }
 
-char    *ft_gnl_generate_line(char *line, size_t r, size_t i)
+char    *ft_gnl_generate_line(char **line, size_t r, size_t i, char **buf)
 {
     char    *tmp;
     int     len;
-    static size_t size;
 
-    len = ft_strlen(line);
-    if (r && line)
-        size += len + i + 1;
-    else
-        size += i - r + 1;
-    tmp = malloc(size * sizeof *tmp);
+    len = ft_strlen(*line);
+    tmp = malloc((len + i - r + 1) * sizeof *tmp);
     if (!tmp)
-        return (NULL);
-    if (line)
     {
-        ft_memcpy(tmp, line, len);
-        tmp[len] = 0;
-        free(line);
+        free (*line);
+        *line = NULL;
+        return (NULL);
     }
+    if (*line)
+    {
+        ft_memcpy(tmp, *line, len);
+        tmp[len] = 0;
+        free(*line);
+    }
+    *line = tmp;
+    ft_memcpy(*line + len, *buf + r, i - r);
+    (*line)[len + i - r] = 0;
     return (tmp);
 }
 
-char    *ft_gnl_get_line(char **buf, int fd)
+char    *ft_gnl_get_line(char **buf, int fd, int rt)
 {
-    int rt;
-    static size_t  i;
-    size_t  r;
-    ssize_t  rd;
-    char    *line;
-    int len;
+    static size_t   i;
+    size_t          r;
+    ssize_t         rd;
+    char            *line;
 
-    rt = 0;
     line = NULL;
     while (!rt)
     {
-        if (i && i < BUFFER_SIZE && (*buf)[i])
-            r = i;
-        else
+        r = i;
+        if (!(i && i < BUFFER_SIZE && (*buf)[i]))
         {
             r = 0;
             i = 0;
             rd = read(fd, *buf, BUFFER_SIZE);
-            if (rd == -1)
-                return (ft_gnl_free(buf, line));
-            else if (rd == 0)
-            {
-                free (*buf);
-                *buf = NULL;
-                return (line);
-            }
+            if (rd == -1 || rd == 0)
+                return (ft_gnl_free(buf, line, rd));
             if (rd < BUFFER_SIZE)
                 (*buf)[rd] = 0;
         }
         i = ft_gnl_find_nl(i, *buf, &rt);
-        len = ft_strlen(line);
-        line = ft_gnl_generate_line(line, r, i);
+        line = ft_gnl_generate_line(&line, r, i, buf);
         if (!line)
-            return (ft_gnl_free(buf, line));
-        ft_memcpy(line + len, *buf + r, i - r);
-        line[len + i - r] = 0;
+            return (ft_gnl_free(buf, line, -1));
     }
     return (line);
 }
@@ -146,8 +144,9 @@ char *get_next_line(int fd)
         buf = malloc(sizeof *buf * BUFFER_SIZE);
         if (!buf)
             return (NULL);
+        ft_bzero(buf, BUFFER_SIZE);
     }
-    return (ft_gnl_get_line(&buf, fd));
+    return (ft_gnl_get_line(&buf, fd, 0));
 }
 
 // int main()
