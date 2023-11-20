@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:50 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/20 14:41:09 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/20 16:06:44 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,20 @@
 #  define BUFFER_SIZE 1024
 # endif
 
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h> 
 
+typedef struct s_buffer
+{
+	char	*buf;
+	size_t	i;
+}	t_buffer;
+
 char	*get_next_line(int fd);
-char	*ft_gnl_get_line(char **buf, int fd, int rt);
+char	*ft_gnl_get_line(t_buffer *buffer, int fd, int rt);
 char	*ft_gnl_generate_line(char **line, size_t r, size_t i, char **buf);
 char	*ft_gnl_free(char **buf, char *line, char cs);
 size_t	ft_gnl_find_nl(size_t i, char *buf, int *rt);

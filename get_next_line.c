@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:56 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/20 15:47:42 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/20 16:04:16 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ char	*ft_gnl_generate_line(char **line, size_t r, size_t i, char **buf)
 	return (tmp);
 }
 
-char	*ft_gnl_get_line(char **buf, int fd, int rt)
+char	*ft_gnl_get_line(t_buffer *buffer, int fd, int rt)
 {
-	static size_t	i;
 	size_t			r;
 	ssize_t			rd;
 	char			*line;
@@ -79,37 +78,37 @@ char	*ft_gnl_get_line(char **buf, int fd, int rt)
 	line = NULL;
 	while (!rt)
 	{
-		r = i;
-		if (!(i && i < BUFFER_SIZE && (*buf)[i]))
+		r = buffer->i;
+		if (!(buffer->i && buffer->i < BUFFER_SIZE && buffer->buf[buffer->i]))
 		{
 			r = 0;
-			i = 0;
-			rd = read (fd, *buf, BUFFER_SIZE);
+			buffer->i = 0;
+			rd = read (fd, buffer->buf, BUFFER_SIZE);
 			if (rd == -1 || rd == 0)
-				return (ft_gnl_free (buf, line, rd));
+				return (ft_gnl_free (&(buffer->buf), line, rd));
 			if (rd < BUFFER_SIZE)
-				(*buf)[rd] = 0;
+				buffer->buf[rd] = 0;
 		}
-		i = ft_gnl_find_nl (i, *buf, &rt);
-		line = ft_gnl_generate_line (&line, r, i, buf);
+		buffer->i = ft_gnl_find_nl (buffer->i, buffer->buf, &rt);
+		line = ft_gnl_generate_line (&line, r, buffer->i, &(buffer->buf));
 		if (!line)
-			return (ft_gnl_free(buf, line, -1));
+			return (ft_gnl_free(&(buffer->buf), line, -1));
 	}
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
+	static t_buffer	buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buf)
+	if (!buffer.buf)
 	{
-		buf = malloc (sizeof * buf * BUFFER_SIZE);
-		if (!buf)
+		buffer.buf = malloc (sizeof(char) * BUFFER_SIZE);
+		if (!buffer.buf)
 			return (NULL);
-		ft_bzero (buf, BUFFER_SIZE);
+		ft_bzero (buffer.buf, BUFFER_SIZE);
 	}
-	return (ft_gnl_get_line (&buf, fd, 0));
+	return (ft_gnl_get_line (&buffer, fd, 0));
 }
