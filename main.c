@@ -1,34 +1,21 @@
-
 #include "get_next_line.h"
 
-int main()
+int	main(void)
 {
-    int i = open("file",  O_RDONLY | O_CREAT);
-    char *h;
-    // h = get_next_line(i);
-    // printf("%s", h);
-    // free(h);
-    // h = get_next_line(i);
-    // printf("%s", h);
-    // free(h);
-    // h = get_next_line(i);
-    // printf("%s", h);
-    // free(h);
-    // h = get_next_line(i);
-    // printf("%s", h);
-    // free(h);
-    // h = get_next_line(i);
-    // printf("%s", h);
-    // free(h);
-    // h = get_next_line(i);
-    // printf("%s", h);
-    // free(h);
-    while (1)
-    {
-        h = get_next_line(i);
-        if (!h)
-            break;
-        printf("%s", h);
-        free(h);
-    }
+	int		i;
+	char	*h;
+
+	i = open("file", O_RDONLY | O_CREAT);
+	// h = get_next_line(i);
+	// printf("%s", h);
+	// free(h);
+	while (1)
+	{
+		h = get_next_line(i);
+		if (!h)
+			break ;
+		printf("%s", h);
+		free(h);
+	}
+	return (0);
 }
