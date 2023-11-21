@@ -6,11 +6,11 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:56 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/21 19:52:01 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:10:36 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_gnl_find_nl(size_t i, char *buf, int *rt)
 {

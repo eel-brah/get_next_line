@@ -6,11 +6,11 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:53 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/21 13:05:15 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:10:30 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
