@@ -5,13 +5,13 @@ int	main(void)
 	int		i;
 	char	*h;
 
-	i = open("hhh", O_RDONLY | O_CREAT);
+	i = open("file", O_RDONLY | O_CREAT);
 	// h = get_next_line(i);
 	// printf("%s", h);
 	// free(h);
 	while (1)
 	{
-		h = get_next_line(i);
+		h = get_next_line(666666666);
 		if (!h)
 			break ;
 		printf("%s", h);
@@ -19,5 +19,4 @@ int	main(void)
 	}
 	return (0);
 }
-// -15
-// 100000000000000000000000000000000000000000000000000
+// mange overflow in malloc

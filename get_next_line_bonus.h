@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:50 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/21 13:05:08 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:49:14 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <fcntl.h> 
 # include <sys/select.h>
+# include <stdint.h>
 
 typedef struct s_buffer
 {

@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:56 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/21 13:04:42 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:48:04 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ char	*ft_gnl_generate_line(char **line, size_t r, size_t i, char **buf)
 	int		len;
 
 	len = ft_strlen (*line);
+	if ((len + i - r + 1) && SIZE_MAX / (len + i - r + 1) < sizeof * tmp)
+		return (ft_gnl_free (line, NULL, -1));
 	tmp = malloc ((len + i - r + 1) * sizeof * tmp);
 	if (!tmp)
-	{
-		free (*line);
-		*line = NULL;
-		return (NULL);
-	}
+		return (ft_gnl_free (line, NULL, -1));
 	if (*line)
 	{
 		ft_memcpy(tmp, *line, len);
@@ -105,6 +103,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!buffer.buf)
 	{
+		if (SIZE_MAX / BUFFER_SIZE < sizeof(char))
+			return (NULL);
 		buffer.buf = malloc (sizeof(char) * BUFFER_SIZE);
 		if (!buffer.buf)
 			return (NULL);
