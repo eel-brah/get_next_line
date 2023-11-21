@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:56 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/21 20:23:50 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 22:18:34 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_gnl_find_nl(size_t i, char *buf, int *rt)
 {
-	while (i < BUFFER_SIZE && buf[i])
+	while (i < (size_t)BUFFER_SIZE && buf[i])
 	{
 		if (buf[i] == 10)
 		{
@@ -77,7 +77,8 @@ char	*ft_gnl_get_line(t_buffer *buffer, int fd, int rt)
 	while (!rt)
 	{
 		r = buffer->i;
-		if (!(buffer->i && buffer->i < BUFFER_SIZE && buffer->buf[buffer->i]))
+		if (!(buffer->i && buffer->i < (size_t)BUFFER_SIZE
+				&& buffer->buf[buffer->i]))
 		{
 			r = 0;
 			buffer->i = 0;
