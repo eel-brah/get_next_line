@@ -5,7 +5,7 @@ int	main(void)
 	int		i;
 	char	*h;
 
-	i = open("file", O_RDONLY | O_CREAT);
+	i = open("hhh", O_RDONLY | O_CREAT);
 	// h = get_next_line(i);
 	// printf("%s", h);
 	// free(h);
@@ -19,3 +19,5 @@ int	main(void)
 	}
 	return (0);
 }
+// -15
+// 100000000000000000000000000000000000000000000000000

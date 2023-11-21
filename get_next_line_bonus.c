@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:56 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/20 18:00:06 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:04:50 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ char	*get_next_line(int fd)
 		buffer[fd].buf = malloc (sizeof(char) * BUFFER_SIZE);
 		if (!buffer[fd].buf)
 			return (NULL);
-		ft_bzero (buffer[fd].buf, BUFFER_SIZE);
 	}
 	return (ft_gnl_get_line (&buffer[fd], fd, 0));
 }
