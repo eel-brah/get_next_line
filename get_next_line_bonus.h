@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:50 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/21 19:49:14 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:59:58 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h> 
-# include <sys/select.h>
+# include <limits.h>
 # include <stdint.h>
 
 typedef struct s_buffer

@@ -1,4 +1,6 @@
 #include "get_next_line.h"
+#include <stdio.h>
+# include <fcntl.h> 
 
 int	main(void)
 {
@@ -11,7 +13,7 @@ int	main(void)
 	// free(h);
 	while (1)
 	{
-		h = get_next_line(666666666);
+		h = get_next_line(i);
 		if (!h)
 			break ;
 		printf("%s", h);

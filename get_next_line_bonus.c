@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:56 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/21 20:10:36 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:02:59 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	*ft_gnl_free(char **buf, char *line, char cs)
 
 char	*ft_gnl_generate_line(char **line, size_t r, size_t i, char **buf)
 {
-	char	*tmp;
-	int		len;
+	char		*tmp;
+	size_t		len;
 
 	len = ft_strlen (*line);
 	if ((len + i - r + 1) && SIZE_MAX / (len + i - r + 1) < sizeof * tmp)
@@ -97,9 +97,9 @@ char	*ft_gnl_get_line(t_buffer *buffer, int fd, int rt)
 
 char	*get_next_line(int fd)
 {
-	static t_buffer	buffer[FD_SETSIZE];
+	static t_buffer	buffer[OPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!buffer[fd].buf)
 	{
